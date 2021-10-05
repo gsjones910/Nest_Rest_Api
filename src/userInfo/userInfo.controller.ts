@@ -41,11 +41,21 @@ export class UserInfoController {
     }
   ))
 
-  uploadAvatar(@Param('userid') userId, @UploadedFile() file) {
-    this.userService.setAvatar(Number(userId), `${file.path}`);
-    return {
-      filePath: file.path,
-      status: 200
-    };
+  async uploadAvatar(@Param('userid') userId, @UploadedFile() file, @Req() request: Request) {
+    try {
+      const temp = request.headers.cookie;
+      const cookie = temp.replace("jwt=","")
+      const data = await this.jwtService.verifyAsync(cookie);
+      if (!data) {
+        throw new UnauthorizedException();
+      }      
+      this.userService.setAvatar(Number(userId), `${file.path}`);
+      return {
+        filePath: file.path,
+        status: 200
+      };
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
   }
 }
