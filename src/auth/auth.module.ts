@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth/auth.controller';
 import { UserInfoController } from '../userInfo/userInfo.controller';
 import { PublicController } from '../public/public.controller';
+import { FirebaseAuthStrategy } from './firebase/firebase-auth.strategy';
 
 @Module({
     imports: [TypeOrmModule.forFeature([User]),
@@ -14,7 +15,7 @@ import { PublicController } from '../public/public.controller';
             secret: "admin",
         })
     ],
-    providers: [UserService, AuthService],
+    providers: [UserService, AuthService, FirebaseAuthStrategy],
     controllers: [AuthController, UserInfoController, PublicController]
 })
 export class AuthModule { }
