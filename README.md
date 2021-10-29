@@ -16,4 +16,3 @@ $ npm run start:dev
 
 ## Postman Screen
 ![alt text](https://github.com/gsjones910/Nest_Rest_Api/screenshots/1.PNG?raw=true)
-
